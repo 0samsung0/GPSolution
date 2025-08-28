@@ -6,6 +6,7 @@ import com.hotels.test.entities.*;
 import com.hotels.test.repositories.HotelRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class HotelService {
         return getDTO(hotels);
     }
 
+    @Cacheable(cacheNames = "Hotel", key = "#id")
     public Optional<Hotel> getHotelById(int id){
         return hotelRepo.findById(id);
     }
